@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
+import Editor from './Editor/Editor';
+import Sidebar from './sidebar/Sidebar';
+
 
 function App() {
+  const [selectedNoteIndex, setSelectedNoteIndex] = useState(null);
+  const [selectedNote,setSelectedNote] = useState(null);
+
+
+  const _selectNote = (note,index)=>{
+    setSelectedNoteIndex({selectedNoteIndex:index});
+    setSelectedNote({selectedNote:note})
+  }
+
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main className='main-container'>
+        {selectedNote ? <Editor selectedNote={selectedNote} setSelectedNote={setSelectedNote} 
+        selectedNoteIndex={selectedNoteIndex} setSelectedNoteIndex={setSelectedNoteIndex} /> : null}
+        <Sidebar  selectedNoteIndex={selectedNoteIndex} 
+        setSelectedNoteIndex={setSelectedNoteIndex} _selectNote={_selectNote} />
+      </main>
     </div>
   );
 }

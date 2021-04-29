@@ -1,0 +1,22 @@
+.listItem{
+    background-color: #d9fff7;
+    
+}
+.ListItem{
+    cursor: pointer;
+    
+}
+.ListItem.Mui-selected{
+    background-color: #d9fff7;
+}
+
+.textsection{
+    max-width: 80%;
+}
+
+.deleteIcon{
+   position: absolute;
+   right: 5px;
+   top: calc(50%-15px);
+   padding-top: 10px;
+}
