@@ -1,5 +1,5 @@
 import  debounce  from '../helper';
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import ReactQuill from 'react-quill';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -38,7 +38,7 @@ const styles = theme => ({
     }
   });
 
-function Editor({notes,selectedNote,setSelectedNote}) {
+function Editor({selectedNote,setSelectedNote,noteUpdate}) {
   
     const[text,setText] = useState('');
     const [title,setTitle]=useState('');
@@ -47,7 +47,6 @@ function Editor({notes,selectedNote,setSelectedNote}) {
     const updateState = ()=>{
       console.log(selectedNote.body);
       setText({text: selectedNote.body});
-      console.log(selectedNote.id);
       setTitle({title: selectedNote.title});
       setId({ id: selectedNote.id});
     }
@@ -55,9 +54,6 @@ function Editor({notes,selectedNote,setSelectedNote}) {
     useEffect(() => {
      
       updateState();
-      return () => {
-        
-      }
     }, [])
 
     const updateBody = async(val)=>{
@@ -66,13 +62,17 @@ function Editor({notes,selectedNote,setSelectedNote}) {
         update();
     }
     
-    const update = debounce(()=>{
+    const update = useRef(debounce(()=>{
         console.log('updating db');
-    },1500);
+        noteUpdate(id,{
+          title:title,
+          body:text
+        })
+    },1500)).current;
    
     return (
         <div>
-            <ReactQuill theme="snow" value={text,title} onChange={updateBody} />
+            <ReactQuill theme="snow" value={text} onChange={updateBody} />
         </div>
     )
 }
