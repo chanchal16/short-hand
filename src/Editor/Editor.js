@@ -1,81 +1,78 @@
 import  debounce  from '../helper';
-import React,{useState,useEffect, useRef} from 'react'
+import React from 'react'
 import ReactQuill from 'react-quill';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
 import { withStyles } from '@material-ui/core/styles';
+import styles from './styles';
 
 
-const styles = theme => ({
-    root: {
-      backgroundColor: theme.palette.background.paper,
-      height: 'calc(100% - 35px)',
-      position: 'absolute',
-      left: '0',
-      width: '300px',
-      boxShadow: '0px 0px 2px black'
-    },
-    titleInput: {
-      height: '50px',
-      boxSizing: 'border-box',
-      border: 'none',
-      padding: '5px',
-      fontSize: '24px',
-      width: 'calc(100% - 300px)',
-      backgroundColor: '#29487d',
-      color: 'white',
-      paddingLeft: '50px'
-    },
-    editIcon: {
-      position: 'absolute',
-      left: '310px',
-      top: '12px',
-      color: 'white',
-      width: '10',
-      height: '10'
-    },
-    editorContainer: {
-      height: '100%',
-      boxSizing: 'border-box'
-    }
-  });
+class Editor extends React.Component{
+  constructor(){
+      super();
+      this.state = {
+          text: '',
+          title: '',
+          id:''
+      }
+  }
 
-function Editor({selectedNote,setSelectedNote,noteUpdate}) {
-  
-    const[text,setText] = useState('');
-    const [title,setTitle]=useState('');
-    const[id,setId]=useState('');
+  componentDidMount = () => {
+      this.setState({
+          text: this.props.selectedNote.body,
+          title: this.props.selectedNote.title,
+          id: this.props.selectedNote.id
+      })
+  }
 
-    const updateState = ()=>{
-      console.log(selectedNote.body);
-      setText({text: selectedNote.body});
-      setTitle({title: selectedNote.title});
-      setId({ id: selectedNote.id});
-    }
+  componentDidUpdate = () => {
+      if(this.props.selectedNote.id !== this.state.id){
+          this.setState({
+              text: this.props.selectedNote.body,
+              title: this.props.selectedNote.title,
+              id: this.props.selectedNote.id
+          }) 
+      }
+  }
 
-    useEffect(() => {
-     
-      updateState();
-    }, [])
+  render(){
+      const { classes } = this.props;
+      return(
+          <div className= {classes.editorContainer}>
+              <BorderColorIcon className={classes.editIcon}></BorderColorIcon>
+              <input
+                 className={classes.titleInput}
+                 placeholder="Note title.."
+                 value={this.state.title? this.state.title:''}
+                 onChange={(e)=>this.updateTitle(e.target.value)}>
+              </input>
+              <ReactQuill style={{height: "100vh"}}
+                 value = {this.state.text}
+                 onChange = {this.updateBody} >
+              </ReactQuill>
+          </div>
 
-    const updateBody = async(val)=>{
-        await setText(val);
-        console.log(text);
-        update();
-    }
-    
-    const update = useRef(debounce(()=>{
-        console.log('updating db');
-        noteUpdate(id,{
-          title:title,
-          body:text
-        })
-    },1500)).current;
-   
-    return (
-        <div>
-            <ReactQuill theme="snow" value={text} onChange={updateBody} />
-        </div>
-    )
+      );
+  }
+  updateBody = async(val) => {
+      await this.setState({text: val});
+      this.update();
+  };
+
+  updateTitle = async(txt) =>{
+      await this.setState({title:txt});
+      this.update();
+  }
+  update = debounce(() => {
+    console.log('updating db');
+      this.props.noteUpdate(this.state.id,{
+          title: this.state.title,
+          body: this.state.text
+      })
+  }, 1500);
 }
 
 
-export default withStyles(styles)(Editor);
+
+
+
+export default withStyles(styles)(Editor)

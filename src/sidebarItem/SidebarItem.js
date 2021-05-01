@@ -3,43 +3,45 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {removeHTMLTags} from '../helper'
-import { makeStyles } from '@material-ui/core/styles';
 import './sidebarItem.css'
 
-const useStyles = makeStyles((theme) => ({
-    
-    root: {
-        '&$selected': {
-          backgroundColor: 'red',
-          '&:hover': {
-            backgroundColor: 'yellow',
-          }
-        },
-      },
-      selected: {},
-    
-}));
+class SidebarItem extends React.Component{
 
 
-export default function SideBarItem({note,index,selectedNoteIndex,selectNote,deleteNote}) {
-    const classes = useStyles();
+    render(){
 
-    const nselectNote = (n,i)=>{selectNote(n,i)}
-    const ndeleteNote = (note)=>{
-        if(window.confirm(`Are you sure you want to delete:${note.title}`)){
-            deleteNote(note);
+        const {classes,_note,_index,selectedNoteIndex} = this.props;
+
+
+        return(
+            <div key={_index}>
+                <ListItem
+                  className='listItem'
+                  selected={selectedNoteIndex===_index}
+                  alignItems="flex-start"
+                >
+                    <div className='textSection'
+                       onClick={()=>this.selectNote(_note,_index)}>
+                           <ListItemText
+                             primary={_note.title}
+                             secondary={removeHTMLTags(_note.body.substring(0,30))+'...'}
+                            />
+                    </div>
+                    <DeleteIcon onClick={()=> this.deleteNote(_note)}
+                        className='deleteIcon'></DeleteIcon>
+                </ListItem>
+            </div>
+        
+        )
+    }
+
+    selectNote = (n,i) => this.props.selectNote(n,i);
+    deleteNote = (note) => {
+        if(window.confirm(`Are you sure you want to delete this: ${note.title}`)){
+            this.props.deleteNote(note);
         }
     }
 
-    return (
-        <div key={index} className={classes.selected}>
-            <ListItem className='ListItem' classes={{ root: classes.root, selected: classes.selected }} selected={selectedNoteIndex === index} alignItems='flex-start'>
-                <div className='textsection' onClick={()=>nselectNote(note,index)}>
-                    <ListItemText primary={note.title} secondary={removeHTMLTags(note.body.substring(0,30)) + '...'}></ListItemText>
-                    {/* {console.log(note.title,note.body)} */}
-                </div>
-                <DeleteIcon className='deleteIcon' onClick={()=>ndeleteNote(note)}></DeleteIcon>
-            </ListItem>
-        </div>
-    )
 }
+
+export default (SidebarItem)

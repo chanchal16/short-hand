@@ -1,16 +1,8 @@
-.listItem{
-    background-color: #d9fff7;
-    
-}
-.ListItem{
+.listItem{ 
     cursor: pointer;
-    
-}
-.ListItem.Mui-selected{
-    background-color: #d9fff7;
 }
 
-.textsection{
+.textSection{
     max-width: 80%;
 }
 
@@ -19,4 +11,7 @@
    right: 5px;
    top: calc(50%-15px);
    padding-top: 10px;
+}
+.deleteIcon:hover{
+    color: #fcb606;
 }
