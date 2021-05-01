@@ -1,38 +1,114 @@
+html,body{
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+#root{
+  height: 100%;
+  box-sizing: border-box;
+}
+
 .App {
+  height: 100%; 
+  box-sizing: border-box; 
+  
+}
+
+/******login**********/
+.card {
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  margin: 10% auto;
+  width: 300px;
+  padding: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container {
+  padding: 2px 16px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.signin-btn{
+  background: #ffc107;
+  border: none;
   color: white;
+  padding: 12px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
 }
 
-.App-link {
-  color: #61dafb;
+/***navigation*******/
+.navigation{
+  background-color: #424242;
+  padding:  0.1px 0 !important; 
+  margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-brand a{
+  float: left; 
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white !important;
+  margin: auto !important;
+}
+.navigation .nav-pills{
+  text-align: right;
+  font-size: 1.2rem;
+}
+.logout{
+  background: #ffc107;
+  border: none;
+  color: white;
+  padding: 12px ;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+.link{
+  text-decoration: none;
+  padding: 8px 15px;
+}
+.list-non-bullet {
+  list-style: none;
+}
+
+/*******quill editor********/
+.quill {
+  height: 100vh;
+  box-sizing: border-box;
+  width: calc(100% - 300px);
+  float: right;
+}
+
+.ql-container {
+  box-sizing: border-box;
+  height: calc(100% - 42px);
+  overflow-y: scroll;
+}
+
+.ql-editor {
+  cursor: text;
+}
+
+.MuiListItem-root.Mui-selected {
+  background-color: #e0f2f1 !important;
+}
+
+.no-note-selected {
+  font-size: 48px;
+  position: absolute;
+  top: 50px;
+  left: calc(50% - 165px);
 }
