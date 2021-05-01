@@ -59,7 +59,7 @@ class App extends React.Component{
         }</> :
         <>
           <div class="card">
-            <div class="container">
+            <div className="container">
               <h3><b>One Time Sign In</b></h3>
               <p>Sign in with your google account to get started.</p>
               <button className='signin-btn' onClick={signInWithGoogle}>Sign in with Google</button>
