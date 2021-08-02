@@ -1,6 +1,5 @@
 import React from 'react';
 import firebase from 'firebase'
-// import 'firebase/storage'
 import 'firebase/firestore'
 
 	  
@@ -18,5 +17,7 @@ import 'firebase/firestore'
     const firebaseApp = firebase.initializeApp(firebaseConfig);
 
     const db = firebase.firestore();
+    const _auth = firebase.auth();
+    const timestamp= firebase.firestore.FieldValue.serverTimestamp()
 
-    export  {db,firebaseApp};
+    export  {db,firebaseApp,_auth,timestamp};
