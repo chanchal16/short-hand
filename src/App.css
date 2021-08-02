@@ -17,6 +17,12 @@ html,body{
   
 }
 
+/********login******/
+
+
+
+
+
 /******login**********/
 .card {
   background-color: #fafafa;
@@ -52,7 +58,7 @@ html,body{
 /***navigation*******/
 .navigation{
   background-color: #424242;
-  padding:  0.1px 0 !important; 
+  padding:  8px 0 !important; 
   margin: 0;
 }
 
@@ -64,14 +70,15 @@ html,body{
   margin: auto !important;
 }
 .navigation .nav-pills{
-  text-align: right;
+  text-align: right !important;
   font-size: 1.2rem;
 }
-.logout{
+button.logout{
   background: #ffc107;
-  border: none;
+  border: 1px solid yellow;
+  border-radius: 5px;
   color: white;
-  padding: 12px ;
+  padding: 8px ;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
@@ -84,7 +91,10 @@ html,body{
   list-style: none;
 }
 
+
+
 /*******quill editor********/
+
 .quill {
   height: 100vh;
   box-sizing: border-box;
